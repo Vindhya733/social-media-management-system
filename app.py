@@ -4,12 +4,21 @@ from bson import ObjectId
 from flask import Flask, request, redirect, render_template, session
 import pymongo
 import os.path
+import certifi
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 PROFILE_PATH = APP_ROOT + "/static/profiles"
 POST_PATH = APP_ROOT + "/static/posts"
 CHAT_PATH = APP_ROOT + "/static/chat"
 
-my_client = pymongo.MongoClient("mongodb+srv://social-dr:W5djwVwCGycp2zDj@cluster0.vw6ep.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI ="mongodb+srv://social-dr:W5djwVwCGycp2zDj@cluster0.vw6ep.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+my_client = pymongo.MongoClient(MONGO_URI, tlsCAFile=certifi.where())
+
+try:
+    my_client.server_info()  # Forces a connection to verify
+    print("Connection successful")
+except Exception as e:
+    print(f"Connection failed: {e}")
+
 my_database = my_client["chandra"]
 admin_col = my_database["admin"]
 user_col = my_database["user"]
