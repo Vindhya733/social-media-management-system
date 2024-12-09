@@ -9,7 +9,7 @@ PROFILE_PATH = APP_ROOT + "/static/profiles"
 POST_PATH = APP_ROOT + "/static/posts"
 CHAT_PATH = APP_ROOT + "/static/chat"
 
-my_client = pymongo.MongoClient("mongodb://localhost:27017")
+my_client = pymongo.MongoClient("mongodb+srv://social-dr:W5djwVwCGycp2zDj@cluster0.vw6ep.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 my_database = my_client["chandra"]
 admin_col = my_database["admin"]
 user_col = my_database["user"]
