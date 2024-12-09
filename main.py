@@ -564,7 +564,9 @@ def deactivated():
     query2 = {"$set": {"status": "Deactivated"}}
     user_col.update_one(query, query2)
     return redirect("/view_reports")
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 
 
