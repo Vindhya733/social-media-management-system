@@ -1,0 +1,43 @@
+<div class="container-body " style="min-height: 100vh;">
+    <div class="details">
+            <form action="user_profile_action"></form>
+                <div class="image">
+                    <img class="mage" src="../static/profiles/{{session['pic']}}" alt="">
+                </div>  
+                <div class="username" style="margin-left:10px;">
+                    <h2>{{session['user_name']}}</h2>
+                </div>
+                <div class="det">
+                    Profile Details
+                </div>
+                <div class="flname">       
+                        <div class="name">
+                            <div class="fnam">
+                                
+                            <h3> {{session['first_name']}}</h3>
+                            </div>
+                        </div>
+                        <div class="name">
+                            <div class="lnam">
+                                <h3>{{session['last_name']}}</h3>
+                            </div>
+                        </div>
+
+                </div> 
+                <div class="mail">           
+                    <h5>{{session['email']}}</h5>
+                </div> 
+                <div class="pass">
+                    <div hidden>{{session['password']}}</div>
+
+                </div> 
+                <div class="profile-dob">
+                        <div>DOB:- {{session['dob']}}</div>
+                </div>
+                <div class="access">
+                    <label for="access_type">Access Type</label>
+                    <h5>{{session['access_type']}}</h5>
+                </div>
+    </div>
+</div>
+

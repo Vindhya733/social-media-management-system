@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/index.css">
+    <title>Social media</title>
+</head>
+<body>
+<div class="card">
+    <form action="report_description" method="post">
+        <div class="card-user"><div class="card-text">Report User</div>
+            <label for="report">Report</label>
+           <textarea placeholder="Write Report" name="report" id="report" cols="30" rows="3"> </textarea>
+        </div>
+        <input type="hidden" name="friend_id" value="{{friend_id}}">
+        <div class="card-log">
+            <input type="submit" class="card-sub mt-10" value="Report">
+        </div>
+    </form>
+</div>
+</body>
+</html>

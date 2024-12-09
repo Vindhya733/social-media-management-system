@@ -1,0 +1,82 @@
+{% include 'ahead.html' %}
+<div class="row">
+
+        {% for report in reports %}
+        {% set user = get_user_by_user_id(report['user_id']) %}
+        {% set friend = get_user_by_user_id(report['friend_id']) %}
+        <div class="w-45">
+            <div class="card-head">
+                <div class="report-des">
+                    <div class=""><h1>Report</h1></div>
+                    <div class="">{{report['date'].strftime("%d-%m-%Y %I:%M %p")}}</div>
+                    <div class="user-name">{{report['report']}}</div>
+                </div>
+                <div class="row space-around">
+                    <div class="card-userby w-45">
+                        <div class=""><h2>Reported by user</h2></div>
+                        <div class="">
+                            <img class="img1" src="../static/profiles/{{user['pic']}}" alt="">
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['user_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['email']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['first_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['last_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['gender']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['access_type']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['dob']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{user['status']}}</div>
+                        </div>
+                    </div>
+                    <div class="card-friend w-45">
+                        <div class=""><h2>Report To User</h2></div>
+                        <div class=""><img class="img1" src="../static/profiles/{{friend['pic']}}" alt=""></div>
+                        <div class="">
+                            <div class="user-name">{{friend['user_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['email']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['first_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['last_name']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['gender']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['access_type']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['dob']}}</div>
+                        </div>
+                        <div class="">
+                            <div class="user-name">{{friend['status']}}</div>
+                        </div>
+                        {% if friend['status'] == "activated" %}
+                        <div class="card-foot">   
+                            <a href="deactivated?user_id={{friend['_id']}}" class="alink-da">Deactivate</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>    
+        </div>        
+        {% endfor %}
+</div>

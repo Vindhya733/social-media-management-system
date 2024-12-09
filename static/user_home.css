@@ -1,0 +1,519 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(58,58,58,100);
+    color: white;
+}
+.nav-item{
+    display: flex; 
+}
+
+.w-25 {
+    width:25%;
+}
+.w-30 {
+    width:30%;
+}
+.w-35 {
+    width:35%;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.nav-int{
+    margin-top: 10px;
+    margin-left: 25px;
+}
+.logo{
+    margin-left: 30px;
+    margin-top: 8px;
+}
+.nav-search{
+    display: flex;
+
+}
+.nav-input{
+    padding: 6px;
+    padding-left: 10px;
+    border-radius: 5px;
+    color: white;
+    background-color:rgb(45,45,45,100);
+    border: none;
+    
+}
+.nav-btn{
+    padding: 4px;
+    color:white;
+    box-shadow: 0px;
+    background-color:rgb(58,58,58,100);
+    border: none;
+}
+.nav-menu-item{
+    display: flex;
+    gap: 60px;
+    margin-top: 15px;
+    color: white;
+    margin-left: 30px;
+    
+}
+.nav-icon{
+    color: white;
+    
+}
+.nav-icon:hover{
+    
+    color: white;
+    padding: 3px;
+}
+
+.icon{
+    margin-top: 12px;
+    color: white;
+}
+.icon:hover{
+    color: white;
+    padding: 3px;   
+}
+.coni{
+    color: white;
+}
+.nav-rgt-menu{
+    display: flex;
+    gap: 50px;
+    margin-left: 80px;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+
+} 
+.container-profile{
+    width: 20%;
+    border-right: 1px solid lightgray;
+    padding: 1px 0px 40px 0px;
+    background-color: rgb(58,58,58,100);
+    color: white;
+}
+.details{
+    
+}
+.container-body{
+    width: 80%;
+    
+}
+.mage{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 50px auto 0 auto;
+    border: 2px solid white;   
+}
+.username{
+    text-align: center;
+    
+}
+.quote{
+    text-align: center;
+    
+}
+.det{
+    margin-top: 30px;
+    border-top: 1px solid lightgray;
+    margin-left: 15px;
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.flname{
+    display: flex;
+    justify-content: space-around;
+
+}
+.text-ed{
+    font-size: 18px;
+    font-weight: 500;
+}
+.mail{
+    margin-left: 40px;
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.access{
+    font-size: 18px;
+    font-weight: 500; 
+    margin: 20px 0px 0px 40px;
+}
+.pass{
+    margin: 30px 0px 0px 40px;
+}
+.put{
+    border: none;
+    font-size: 18px;
+    font-weight: 500; 
+    margin-top: 10px;
+    margin-bottom: 25px;
+    background-color: rgb(58,58,58,100);
+}
+.fig{
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+}
+.profile-dob{
+    margin-left: 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.card-body{
+    border: 1px solid lightgray;
+    width: 500px;
+    margin: 50px auto;
+    border-radius: 9px;
+    padding-bottom: 40px;
+    background-color:rgb(58,58,58,100);
+    color: white;
+    
+}
+.card-text1{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+    padding-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    
+}
+.img1{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+.card-type{
+    display: flex;
+    position: relative;
+
+}
+.card-sel{
+    padding: 0px 4px 0px 15px ;
+    border-radius: 5px;
+    background-color: lightgray;
+    
+}
+.conin{
+    position: absolute;
+    left: 3px;
+    top: 5px;
+}
+.card-det{
+    display: flex;
+}
+.card-dt{
+    margin-top: 9px;
+    margin-left: 10px;
+}
+.pro-nm{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+.card-txt{
+    margin-top: 25px;
+    margin-left: 20px;
+}
+.cap{
+    border: none;
+    background-color: rgb(45,45,45,100);
+    color: white;
+}
+.desp{
+    border-radius: 10px;
+    background-color: rgb(45,45,45,100);
+    border: none;
+    color: white;
+}
+.card-pdfs{
+    margin-top: 15px;
+    margin-left: 20px;
+    padding: 20px;
+}
+.card-des{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.add_post{
+    width: 460px;
+    text-align: center;
+    padding: 7px;
+    margin-left: 20px;
+    border-radius: 8px;
+    margin-top: 25px;
+    background-color: lightgrey;
+}
+.choose{
+    background-color: rgb(45,45,45,100);
+}
+.card-4{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    
+}
+.card-tot{
+    margin-top: 20px;
+}
+.kw{
+    width: 400px;
+    background-color:rgb(58,58,58,100);
+    border: none;
+    color: white;
+    padding: 5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: none;
+}
+.bttn{
+    
+    color: black;
+    padding: 0px;
+    width: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.w-25{
+    width: 25%;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: 30px;
+    
+}
+.row2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+.row-profile{
+    margin-top: 20px;
+}
+.row-lnk{
+    width: 200px;
+}
+.add-frnd{
+    display: block;
+    width: 205px;
+    color: white;
+    text-decoration: none;
+    border: 1px solid lightgray;
+    background-color: rgb(58,58,58,100);
+    padding: 2px;
+    text-align: center;
+    border-radius: 5px;
+}
+.add-frnd1{
+    display: block;
+    width: 102px;
+    color: white;
+    text-decoration: none;
+    border: 1px solid lightgray;
+    background-color: rgb(58,58,58,100);
+    padding: 2px;
+    text-align: center;
+    border-radius: 5px;
+}
+.frnd-fling{
+    font-size: 20px;
+}
+.names{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 30px;
+    
+}
+.w-40 {
+    width: 40%;
+}
+.w-25 {
+    width: 25%;
+}
+.post {
+    height: 92vh;
+    overflow: auto;
+}
+.card4{
+    
+    width: 500px;
+    margin-left: 55px;
+    border-radius: 9px;
+    background-color: rgb(45,45,45,100);
+    color: white;
+    padding-bottom: 10px;
+    
+}
+
+.card-pro{
+    display: flex;
+    margin-bottom: 20px;
+    
+}
+.card-uer{
+    margin-top: 12px;
+    margin-left: 10px;
+}
+.post-img{
+    border: 1px solid lightgray;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+.profile-description{
+    margin-left: 15px;
+}
+.lk{
+    margin-top: 10px;
+    margin-left: 15px;
+    color: white;
+    margin-bottom: 10px;
+}
+.post-crption{
+    margin-top: 10px;
+}
+.pro-nam{
+    font-size: 16px;
+    font-weight: 500;
+}
+.mt-15 {
+    margin-top:15px;
+}
+.comment-box{
+    padding:10px;
+}
+.comment-area{
+    width: 100%;
+}
+.comment-box{
+    width: 100%;
+    height:75vh;
+    overflow:auto;
+}
+.btn-txt{
+    padding: 4px;
+    width: 275px;
+}
+.comment-un{
+    margin-right: 10px;
+}
+.comment-usr{
+    display: flex;
+}
+.btn-txt {
+    width: 100%;
+}
+.tags{
+    width: 430px;
+    margin: 20px 0px 0px 20px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color:rgb(45,45,45,100);
+    border: none;
+    color: white;
+}
+.row {
+    display:flex;
+    justify-content: space-around;
+}
+.text-center {
+    text-align:center;
+
+}
+
+.chat {
+    position:fixed;
+    bottom:0px;
+    right:10px;
+    box-shadow: 0 0 10px #ccc;
+    width:300px;
+    height:400px;
+    border: 2px solid #ddd;
+    background-color:white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+.chat-body-messages{
+    height:340px;
+    overflow:auto;
+}
+.chat-toggle {
+    display:None;
+}
+
+.chat-close-btn{
+    cursor: pointer;
+}
+#btn-send{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.message-text{
+    font-size: 10px;
+}
+.form-control {
+    width:100%;
+    display:block;
+    border:1px solid lightgray;
+    padding:5px;
+}
+.w-80 {
+    width:80%;
+}
+.w-10 {
+    width:10%;
+}
+.text-end{
+    text-align: right;
+}
+.chat-btn{
+    padding:10px;
+    background-color:black;
+    color:white;
+    margin-left:20px;
+    border-radius:20px;
+
+}
+.w-60 {
+    width:60%;
+}
+.form-control-file{
+    width:100%;
+}
+.middle {
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    align-item: center;
+}
+.flex{
+    display:flex;
+}

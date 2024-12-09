@@ -1,0 +1,419 @@
+{% include 'user_head.html'%}
+<div class="container">
+    <div class="container-profile">
+            {% include'user_profile.html'%}
+    </div>
+    <div class="container-body">
+        <div class="container-body">
+            {% if user_type=="users"%}
+          <form action="users">
+              <input type="hidden" name="user_type" value="{{user_type}}">
+            <div class="card-4">
+                <div class="card-src">
+                  <input type="search" name="keyword"  class="kw" value="{{keyword}}" placeholder="users">
+                </div>
+                <div class="card-butn">
+                      <button type="submit" class="bttn" value="search"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
+                        <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+                        <path d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11"/>
+                      </svg></button>
+                </div>
+             </div>
+          </form>
+            {%endif%}
+          <div class="names">
+            {% if user_type=="users"%}
+            <div>All Profiles</div>
+            {%endif%}
+            {% if user_type=="following"%}
+            <div>Friend Request you received</div>
+            {%endif%}
+            {% if user_type=="followers"%}
+            <div>Your Friends</div>
+            {%endif%}
+          </div>
+        </div>
+        <div class="row">
+            {% for user in users%}
+                  <div class="col w-25">
+                    <form action="users"> 
+                      <div class="row-profile">
+
+                        <div><img src="../static/profiles/{{user['pic']}}" style="height:200px;max-width:300%" alt=""></div>
+                        
+                          <div class="row-details">
+                            <div class="row-user"><h4>{{user['user_name']}} {{user['first_name']}}</h4> </div>
+                          </div>
+                          <div class="row-lnk">
+                              {% if user_type=="following"%}
+                                <div>
+                                      <a href="accept_friend_request?friend_id={{user['_id']}}&user_type={{user_type}}" class="add-frnd">Accept Friend Request</a>
+                                      <a href="unfollow?friend_id={{user['_id']}}&user_type={{user_type}}" class="add-frnd">Reject Friend Request</a>
+                                </div>
+                              {%else%}
+                                {% if user['_id'] not in friends %}
+                                    {% set is_requested = is_friend_request_sent(user['_id']) %}
+                                    {% set is_blocked = is_friend_blocked_by_you(user['_id']) %}
+                                    {% if is_requested %}
+                                      <a href="unfollow?friend_id={{user['_id']}}&user_type={{user_type}}" class="add-frnd">Cancel Friend Request</a>
+                                    {% else %}
+                                    {% if not is_blocked %}
+                                    {% if 'blocked_ids' in user and ObjectId(session['user_id']) in user['blocked_ids'] %}
+                                        <div>Blocked You</div>
+                                    {% else %}
+                                      <a href="follow?friend_id={{user['_id']}}&user_type={{user_type}}" class="add-frnd">Send Friend Request</a>
+                                    {% endif %}
+                              {% endif %}
+                              {% endif %}
+                                    <div class="flex">
+                                        <div>
+                                            {% if is_blocked %}
+                                                <a href="unblock?friend_id={{user['_id']}}" class="add-frnd1">Unblock</a>
+                                            {% else %}
+                                                <a href="block?friend_id={{user['_id']}}" class="add-frnd1">Block</a>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            <a href="report?friend_id={{user['_id']}}" class="add-frnd1">Report</a>
+                                        </div>
+                                    </div>
+                                  {% else %}
+                                      <a href="unfollow?friend_id={{user['_id']}}&user_type={{user_type}}" class="add-frnd">Unfriend</a>
+                                        {% set is_friend_following = is_friend_following_you(user['_id']) %}
+                                        {% if is_friend_following %}
+                                            <div class="add-frnd" onclick="openChat('{{str(user['_id'])}}','{{user['name']}}')" >Chat</div>
+                                        {% endif %}
+                                  {% if post_id!=None: %}
+                                  {% endif %}
+                                  {% endif %}
+                                  {% set is_shared = is_post_shared(user['_id'],post_id)%}
+                                  {% if is_shared %}
+                                     <div> Already Shared </div>
+                                  {% else %}
+                                    {% if post_id!=None %}
+                                      <a href="share?friend_id={{user['_id']}}&user_type={{user_type}}&post_id={{post_id}}" class="add-frnd">Share</a>
+                                    {% endif  %}
+                                  {% endif  %}
+                              {% endif %}
+                          </div>
+                      </div>
+                    </form>    
+                  </div>
+            {%endfor%}
+       </div>
+    </div>
+
+</div>
+
+<script>
+    let refreshIntervalId = null;
+    $(document).ready(function(){
+            getMessages();
+        $("#btn-send").on("click", ()=>{
+            sendMessage()
+        })
+    });
+    function openChat(other_user_id, other_user_name){
+        console.log(other_user_id)
+        console.log(other_user_name)
+
+        $("#other_user_name").html(other_user_name);
+        $("#other_user_id").val(other_user_id);
+        if($(".chat").hasClass("chat-toggle")){
+            getMessages();
+            $(".chat").removeClass("chat-toggle");
+            intervalManager(true, getMessage, 2000);
+        }else{
+            $(".chat").addClass("chat-toggle");
+            intervalManager(false);
+        }
+    }
+    function closeChat(){
+        $(".chat").addClass("chat-toggle");
+        intervalManager(false);
+    }
+    function getMessages() {
+        $.get("get_messages?other_user_id="+$("#other_user_id").val(), function(data, status){
+            let messages = data['messages']
+            console.log(typeof(messages))
+            console.log(messages)
+            let display_message = "";
+            for(let i=0; i<messages.length; i++){
+                if(messages[i]['file_type']==undefined){
+                    if(messages[i]['sender_id']!=$("#other_user_id").val()){
+                        display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+                    }else{
+                        display_message = display_message + `<div class="text-start text-success ps-3 mt-1">${messages[i]['message']}</div>
+                                                            <div class="text-start ps-3 message-text text-muted" >${messages[i]['date']}</div>`
+                    }
+                }else {
+                    if(messages[i]['sender_id']!=$("#other_user_id").val()){
+                        if(messages[i]['file_type']==='.png' || messages[i]['file_type']==='.jpeg' || messages[i]['file_type']==='.jpg') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end"><img src="../static/chat/${messages[i]['file']}" style="width:60%"></div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp3') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <audio class="post-img" controls style="width:60%;margin-left:40%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/ogg">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/mpeg">
+                                                                  Your browser does not support the audio tag.
+                                                                </audio>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp4') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <video class="post-img" controls style="width:60%;margin-left:40%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/mp4">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/ogg">
+                                                                  Your browser does not support the video tag.
+                                                                </video>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.pdf') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <object class="pdf" data="../static/chat/${messages[i]['file']}" style="width:60%;margin-left:40%"></object>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }
+
+                    }else{
+                        if(messages[i]['file_type']==='.png' || messages[i]['file_type']==='.jpeg' || messages[i]['file_type']==='.jpg') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start"><img src="../static/chat/${messages[i]['file']}" style="width:60%"></div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp3') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <audio class="post-img" controls style="width:60%;margin-left:0%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/ogg">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/mpeg">
+                                                                  Your browser does not support the audio tag.
+                                                                </audio>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp4') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <video class="post-img" controls style="width:60%;margin-left:0%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/mp4">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/ogg">
+                                                                  Your browser does not support the video tag.
+                                                                </video>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.pdf') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <object class="pdf" data="../static/chat/${messages[i]['file']}" style="width:60%;margin-left:0%"></object>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }
+                    }
+                }
+            }
+            console.log(display_message)
+            $(".chat-body-messages").html(display_message)
+            var chat_body_messages = document.getElementById("chat-body-messages");
+            chat_body_messages.scrollTop = chat_body_messages.scrollHeight;
+            setAsReadReceiver()
+            setAsReadSender()
+        });
+
+    }
+    function sendMessage() {
+        let message = $("#message").val()
+        if(message == "" && $('#file')[0].files[0]==undefined){
+            alert("Enter Message or Choose File")
+        }else{
+            console.log($('#file')[0].files[0])
+            if($('#file')[0].files[0]!=undefined){
+                var formData = new FormData();
+                formData.append('file', $('#file')[0].files[0]);
+                formData.append('other_user_id', $("#other_user_id").val());
+                formData.append('message', message);
+
+                $.ajax({
+                   url : 'http://127.0.0.1:5000/send_message_file',
+                   type : 'POST',
+                   data : formData,
+                   processData: false,
+                   contentType: false,
+                   success : function(data) {
+                       console.log(data)
+                   }
+                });
+            }else{
+                $.get("send_messages?other_user_id="+$("#other_user_id").val()+"&message="+message, function(data, status){
+                    console.log(data)
+                    $("#message").val("")
+                });
+            }
+
+
+        }
+
+    }
+    function setAsReadReceiver(){
+        $.get("set_as_read_receiver?other_user_id="+$("#other_user_id").val(), function(data, status){
+              console.log(data)
+              isUpdateReceiver = true
+        });
+    }
+    function setAsReadSender(){
+        $.get("set_as_read_sender?other_user_id="+$("#other_user_id").val(), function(data, status){
+              console.log(data)
+              isUpdateSender = true
+        });
+    }
+    function getMessage(){
+            console.log("inside")
+            $.get("get_message?other_user_id="+$("#other_user_id").val(), function(data, status){
+            let messages = data['messages']
+            let display_message = "";
+            console.log("inside2")
+            for(let i=0; i<messages.length; i++){
+                if(messages[i]['file_type']==undefined){
+                    if(messages[i]['sender_id']!=$("#other_user_id").val()){
+                        display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+                    }else{
+                        display_message = display_message + `<div class="text-start text-success ps-3 mt-1">${messages[i]['message']}</div>
+                                                            <div class="text-start ps-3 message-text text-muted" >${messages[i]['date']}</div>`
+                    }
+                }else {
+                    if(messages[i]['sender_id']!=$("#other_user_id").val()){
+                        if(messages[i]['file_type']==='.png' || messages[i]['file_type']==='.jpeg' || messages[i]['file_type']==='.jpg') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end"><img src="../static/chat/${messages[i]['file']}" style="width:60%"></div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp3') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <audio class="post-img" controls style="width:60%;margin-left:40%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/ogg">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/mpeg">
+                                                                  Your browser does not support the audio tag.
+                                                                </audio>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp4') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <video class="post-img" controls style="width:60%;margin-left:40%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/mp4">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/ogg">
+                                                                  Your browser does not support the video tag.
+                                                                </video>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.pdf') {
+                            display_message = display_message + `<div class="text-end text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-end">
+                                                                <object class="pdf" data="../static/chat/${messages[i]['file']}" style="width:60%;margin-left:40%"></object>
+                                                             </div>
+                                                            <div class="text-end pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }
+
+                    }else{
+                        if(messages[i]['file_type']==='.png' || messages[i]['file_type']==='.jpeg' || messages[i]['file_type']==='.jpg') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start"><img src="../static/chat/${messages[i]['file']}" style="width:60%"></div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp3') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <audio class="post-img" controls style="width:60%;margin-left:0%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/ogg">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="audio/mpeg">
+                                                                  Your browser does not support the audio tag.
+                                                                </audio>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.mp4') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <video class="post-img" controls style="width:60%;margin-left:0%">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/mp4">
+                                                                  <source src="../static/chat/${messages[i]['file']}" type="video/ogg">
+                                                                  Your browser does not support the video tag.
+                                                                </video>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }else if(messages[i]['file_type']==='.pdf') {
+                            display_message = display_message + `<div class="text-start text-primary pe-3 mt-1">${messages[i]['message']}</div>
+                                                             <div class="text-start">
+                                                                <object class="pdf" data="../static/chat/${messages[i]['file']}" style="width:60%;margin-left:0%"></object>
+                                                             </div>
+                                                            <div class="text-start pe-3 message-text text-muted" >${messages[i]['date']}</div>`
+
+                        }
+                    }
+                }
+            }
+            console.log(display_message)
+            $(".chat-body-messages").append(display_message)
+            var chat_body_messages = document.getElementById("chat-body-messages");
+            chat_body_messages.scrollTop = chat_body_messages.scrollHeight;
+        });
+    }
+
+    let intervalID = null;
+    function intervalManager(flag,getMessage, time) {
+       if(flag)
+         intervalID =  setInterval(getMessage, time);
+       else
+         clearInterval(intervalID);
+    }
+
+</script>
+<input type="hidden" id="other_user_id">
+<div id="chat" class="chat chat-toggle">
+    <div class="">
+        <div class="row2 p-2">
+            <div class="w-80" id="other_user_name"></div>
+            <div class="w-10 text-end chat-close-btn"  onclick="closeChat()">X</div>
+        </div>
+        <hr>
+        <div class="chat-body">
+            <div class="chat-body-messages" id="chat-body-messages">
+
+            </div>
+            <div class="chat-body-input" >
+                <div class="row2 ">
+                    <div class="w-60">
+                        <input type="text" id="message" class="form-control" placeholder="Write your message here">
+                    </div>
+                    <div class="w-20" style="margin-top:7px;">
+                        <label for="file" class="middle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+  <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
+</svg></label>
+                        <input  type="file" id="file" style="display:none;">
+                    </div>
+                    <div class="w-10" style="margin-top:5px;">
+                        <i class="material-icons middle" id="btn-send">send</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

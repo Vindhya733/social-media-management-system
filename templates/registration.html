@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/registration.css">
+    <title>Social Media </title>
+</head>
+<body >
+    <div class="card">
+        <form action="registration_action" class="" method="post" enctype="multipart/form-data">
+                <div class="card-head">
+                      <div><img  class="card-img" src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></div>
+                    <div class="card-body">
+                        <div class=" card-text"><h2>Sign In</h2></div> 
+                        <div class="card-user">
+                            <label class="card-lab" for="user_name">User Name</label><br>
+                            <input type="text" name="user_name" class="card-in1" id="user_name" placeholder="Your Name" required>
+                        </div>
+                        <div class="card-first">
+                            <label class="card-lab2" for="first_name">First Name</label><br>
+                            <input type="text" name="first_name" class="card-in2" id="first_name" required placeholder="Your FirstName">
+                        </div>
+                        <div class="card-last">
+                            <label for="last_name" class="card-lab3">Last name</label><br>
+                            <input type="text" name="last_name" class="card-in3" id="last_name" placeholder="Your LastName" required>
+                        </div>
+                        <div class="input-card">
+                            <div class="card-grn">
+                                <label for="gender" class="card-lab4">Gender</label><br>
+                                <input type="radio" id="gender" name="gender" value="Male" class="card-in4" ><label for="gender"><svg style="color: rgb(26, 26, 25);" height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><path d="m7.5.5c1.65685425 0 3 1.34314575 3 3v2c0 1.65685425-1.34314575 3-3 3s-3-1.34314575-3-3v-2c0-1.65685425 1.34314575-3 3-3zm7 14v-.7281753c0-3.1864098-3.6862915-5.2718247-7-5.2718247s-7 2.0854149-7 5.2718247v.7281753c0 .5522847.44771525 1 1 1h12c.5522847 0 1-.4477153 1-1z" fill="#1a1a19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 2)"></path></svg></label>
+                                <input type="radio" id="gender2" name="gender" value="Female" checked><label for="gender2"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 1280 1760"><path fill="black" d="M1280 1024q0 40-28 68t-68 28q-51 0-80-43L877 736h-45v132l247 411q9 15 9 33q0 26-19 45t-45 19H832v272q0 46-33 79t-79 33H560q-46 0-79-33t-33-79v-272H256q-26 0-45-19t-19-45q0-18 9-33l247-411V736h-45l-227 341q-29 43-80 43q-40 0-68-28t-28-68q0-29 16-53l256-384q73-107 176-107h384q103 0 176 107l256 384q16 24 16 53M864 224q0 93-65.5 158.5T640 448t-158.5-65.5T416 224t65.5-158.5T640 0t158.5 65.5T864 224"/></svg></label>
+                            </div>
+                            <div class="card-profile">
+                                <label for="pic" class="card-pro">Profile Picture</label><br>
+                                <input type="file" class="card-in5" name="pic" id="pic">
+                            </div>
+                        </div>         
+                            <div class="card-mail">
+                                <label for="email" class="card-lab5">Email</label><br>
+                                <input type="email" name="email" id="email" class="card-in6" placeholder="Your Email" required>
+                            </div>
+                        <div class="card-pass">
+                            <label for="password" class="la">Password</label><br>
+                            <input type="password" name="password" class="card-in7" id="password" required placeholder="Enter Password">
+                        </div>
+                        <div class="btn-card">
+                            <div class="card-access">
+                                <label for="access_type" class="card-ace">Access Type</label><br>
+                                <select name="access_type" class="card-sel" id="access_type">
+                                    <option value="Private">Private</option>
+                                    <option value="Public">Public</option>
+                                </select>
+                            </div>
+                            <div class="card-dob">
+                                <label for="dob">DOB</label><br>
+                                <input type="date" name="dob" id="dob" value="11/19/2003">
+                            </div>
+                        </div>    
+                        <div class="card-frnd"></div>
+                        </div>
+                        <div>
+                            <input type="submit" class="card-sign" value="Sign Up">
+                        </div>
+                    </div> 
+                </div>     
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.navbar {
+    background-color: rgba(0, 0, 0, 0.762);
+    color:rgb(255,219,220);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style:none;
+    display: flex;
+    font-size: 25px;
+}
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color:rgb(255,219,220);
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: rgb(255,219,220);
+    color: black;
+    border-radius: 15px;
+    padding: 2px;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;   
+}
+.space-around{
+    justify-content: space-around;
+}
+.w-45{
+    width: 45%;
+}
+.report-des{
+    margin: 25px auto;
+    border: 1px solid black;
+    text-align: center;
+}
+.card-head{
+    border: 1px solid black;
+}
+.img1{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+.user-name{
+    font-size: 20px;
+    font-weight: bolder;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.card-userby{
+    border: 1px solid black;
+}
+.w-50{
+    width: 50%;
+}
+.card-friend{
+    border: 1px solid black;
+}
+.alink-da{
+    text-decoration: none;
+    font-size: 20px;
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+    padding: 9px;
+    border-radius: 15px;
+}
+.card-foot{
+    margin-top: 20px;
+    text-align: center;
+    padding: 15px;
+}

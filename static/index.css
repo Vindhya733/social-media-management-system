@@ -1,0 +1,108 @@
+*{
+   
+    margin: 0px;
+}
+body{
+    background-image: url(https://images.unsplash.com/photo-1562577309-4932fdd64cd1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -10;
+
+}
+.card{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width:400px;
+    position: relative;
+    margin: 200px 550px;
+    border-radius: 14px;
+    border: 1px solid lightgray;
+    background-color: rgba(253, 252, 252, 0.785);
+    box-shadow: 0px 0px 10px;
+}
+.card-text{
+    font-size: 25px;
+    font-weight: 400;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    color: black;
+}
+.card-user{
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: black;
+
+}
+.card-input{
+    border-radius: 16px;
+    background-color: rgba(218, 215, 215, 0.299);
+    padding: 8px;
+    padding-right: 130px;
+    
+}
+.card-pss{
+   
+    color: black;
+}
+.card-pass{
+    margin-left: 20px;
+}
+.card-pss{
+    padding: 8px;
+    padding-right: 130px;
+    border-radius: 16px;
+    background-color: rgba(218, 215, 215, 0.299);
+    margin-bottom: 18px;
+    
+}
+.card-sub{
+    padding: 8px;
+    width: 300px;
+    margin-left: 40px;
+    border-radius: 14px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    text-align: center;
+
+
+}
+.card-reg{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
+
+}
+.card-mem{
+    color: black;
+    margin-left: 65px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+}
+.admin-link{
+    position:relative;
+}
+.a-link-admin{
+    position:absolute;
+    bottom:610px;
+    right:80px;
+
+}
+.admin-login{
+    text-decoration:none;
+    color:black;
+    font-size:28px;
+    border: 2px solid black;
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.621);
+    border-radius: 10px;
+}
+.admin-login:hover{
+    background-color: black;
+    padding: 10px;
+    box-shadow: 0px 0px 20px black;
+    color: white;
+}
+.mt-10{
+    margin-top:10px;
+}

@@ -1,0 +1,68 @@
+{% include 'user_head.html'%}
+<div class="container">
+        <div class="container-profile">
+                {% include 'user_profile.html'%}
+        </div>
+        <div class="container-body">
+          <form action="post_action" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <div class="card-text1">
+                    <div>Create post</div>
+                </div>
+                <div class="card-det">
+                    <div class="container-img">
+                        <img class="img1" src="../static/profiles/{{session['pic']}}" alt="">
+                    </div>
+                    <div class="card-dt">
+                        <div class="card-uer">
+                            <div class="pro-nm">{{session['user_name']}}</div>
+                        </div>
+                        <div class="card-type">
+                                <div><svg xmlns="http://www.w3.org/2000/svg" class="conin" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                                </svg></div>
+                                <div class="slt">
+                                    <select name="access_type" class="card-sel" id="access_type">
+                                        <option value="Private">Private</option>
+                                        <option value="Public">Public</option>
+                                        <option value="friends" selected><h6> Friends</h6></option>
+                                    </select>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-txt">
+                    <textarea name="caption" id="caption" class="cap" cols="60" rows="0" placeholder="What's on your mind ?" ></textarea>
+                </div>
+                <div class="card-pdfs">
+                    <label for="files"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">Add
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z"/>
+                      </svg>   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-camera-reels" viewBox="0 0 16 16">
+                        <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0M1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/>
+                        <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm6 8.73V7.27l-3.5 1.555v4.35zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1"/>
+                        <path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6M7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                      </svg>   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-music-note-beamed" viewBox="0 0 16 16">
+                        <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2"/>
+                        <path fill-rule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z"/>
+                        <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z"/>
+                      </svg> </label>
+                    <input type="file" name="file" id="file" class="choose" >
+                </div>
+                <div class="card-des">
+                    <textarea name="description" class="desp" id="description"
+                              placeholder=" write description"></textarea>
+                </div>
+                <div>
+                    <input type="text" name="tags" id="tags" class="tags" placeholder="Add #tags">
+                </div>
+                <div class="card-sub">
+                    <input type="submit" name="add_post" class="add_post" id="add_post" value="Post On Timeline">
+                </div>
+
+            </div>
+          </form>
+        </div>
+</div>
+
