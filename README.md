@@ -23,4 +23,23 @@ This project allows users to:
 ---
 
 ## 📂 Project Structure
+social media/
+├── static/ # CSS files
+├── templates/ # HTML templates
+├── app.py # Main Flask app
+├── requirements.txt # Required Python packages
+├── README.md
+
+yaml
+Copy
+Edit
+---
+
+## 💻 How to Run
+
+1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Vindhya733/social-media-management-system.git
+
 
